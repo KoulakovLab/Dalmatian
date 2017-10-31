@@ -1,6 +1,6 @@
 function [X, Y, Z] = runme(IM, IMREF)
 %RUNME Find spots in image
-%   [X, Y, Z] = runme(IM, HIST)
+%   [X, Y, Z] = runme(IM, IMREF)
 %   You have to run it in your active directory with z-stack.
 %   Be sure you have set apporopriate values FNAMEFMT
 %   (file name format like like 's_C001Z*.tif').
@@ -43,34 +43,34 @@ function [X, Y, Z] = runme(IM, IMREF)
 
 %Predefined values for sload
 
-FNAMEFMT = '*_C0_*.tif';
+FNAMEFMT  = '*C0*.tif';   %To read the first channel of the dataset (regular expression).
 
 %Predefined values for sstat
 
-NTR = 1000;
-R = 7.5;
-THRESHOLD = 15;
-LOWPASS = 2;
-HIPASS = 6;
-MINREG = 100;
+NTR       = 1000;         %Number of bootstrap trials
+R         = 7;            %Radius of the region for the bootstrap
+THRESHOLD = 0;            %Intensity threshold (absolute value): no threshold
+LOWPASS   = 2;            %Low-pass filter standard deviation (in pixels) to reduce pixel noise
+HIPASS    = 100;          %Hi-pass filter standard deviation (in pixels): substantially larger than the cell
+MINREG    = 100;          %Minimal region size (in voxels) to calculate the statistics
 
 %Predefined values for sselect
 
-CONFLVL = 0.3;
-S1MIN = 4;
-S1MAX = 8;
-S2MIN = 4;
-S2MAX = 8;
-S3MIN = 4;
-S3MAX = 8;
-IMMIN = 50;
-IMMAX = Inf;
+CONFLVL   = 0.1;          %P-value for the putative cell to match the following criteria
+S1MIN     = 0;            %Standard deviations of the data (in pixels), fitted with Gaussian distribution:
+S1MAX     = Inf;          %no limits
+S2MIN     = 0;
+S2MAX     = Inf;
+S3MIN     = 0;
+S3MAX     = Inf;
+IMMIN     = 0;            %Signal intensity: no limits
+IMMAX     = Inf;
 
 %Task splitting parameters
 
-SZ = 100000;
-OVERLAP = 40;
-INTERACT = 0;
+SZ        = 500;          %Splitting the task into squares of the given size (in pixels) to fit the RAM.
+OVERLAP   = 40;           %Overlap of the squares (in pixels) the task is divided into
+INTERACT  = 1;            %1 - interact, 0 - no interaction
 
 if strcmp(IM, 'load')
     IM = sload(FNAMEFMT);
