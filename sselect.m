@@ -79,8 +79,9 @@ hold off
 
 %If INTERACT is active, reveal the parameters for the mouse-selected cell
 
+title('Click on a cell to reveal the data. Click outside to exit');
+
 while(INTERACT)
-    title('Click on a cell to reveal the data. Click outside to exit');
     
     %Save the mouse-selected coordinates
     
