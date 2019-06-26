@@ -122,7 +122,7 @@ The results would be saved both in MATLAB figure and data file formats. In the d
 In the folder with the output data files, run `scolocolize` with the maximal distance and the numbers of the channels to be colocoized as parametes: 
 
 ```matlab
-scolocolize(7, '*C0*', '*C1*'); %detected spots no more than 7 px apart in the first and the second channels
+scolocolize(7, 'C0', 'C1'); %detected spots no more than 7 px apart in the first and the second channels
 ```
 Similarly, the results would be saved both in MATLAB figure and data file formats. In the data file format, three colums would stand for the detected spot coordinates.
 
