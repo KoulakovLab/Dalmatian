@@ -31,7 +31,7 @@ for i = 1 : length(ds)
         cd('../');
         
         %Loading spots
-        
+
         fin = fopen(strcat(ds(i).name, '_', CH1, '.dat'), 'r');
         if fin == -1
             continue
@@ -47,44 +47,55 @@ for i = 1 : length(ds)
         fclose(fin);
         
         if ~isempty(spots1) && ~isempty(spots2)
-            
+
+            X1 = (spots1(1, :))';
+            Y1 = (spots1(2, :))';
+            Z1 = (spots1(3, :))';
+
+            X2 = (spots2(1, :))';
+            Y2 = (spots2(2, :))';
+            Z2 = (spots2(3, :))';
+
+            spots1 = spots1';
+            spots2 = spots2';
+
             %Colocalization
-            
+
             spots1 = DIST * round(spots1 / DIST);
             spots2 = DIST * round(spots2 / DIST);
-            
+
             ind = find(ismember(spots1, spots2, 'rows') == 1);
-            
+
             %Generating output
-            
+
             [a, b] = size(IM1);
             IMRES = zeros(a, b, 3);
             IMRES(:, :, 1) = IM1 / max(IM1(:));
             IMRES(:, :, 2) = IM2 / max(IM2(:));
-            
+
             image(IMRES), axis image
             hold on
-            
+
             plot(Y1, X1, 'r+');
             axis image;
             title(sprintf('Number of detected spots: %d', length(ind)));
             hold on
             plot(Y2, X2, 'g+');
             plot(Y1(ind), X1(ind), 'yo');
-            
+
             hold off
-            
+
             %Saving data
-            
+
             X = X1(ind);
             Y = Y1(ind);
             Z = Z1(ind);
-            
+
             foutname = strcat(ds(i).name, '_coloc_', CH1, CH2);
-            
+
             hgsave(strcat(foutname, '.fig'));
             close all
-            
+
             fout = fopen(strcat(foutname, '.dat'), 'w');
             fprintf(fout, '%d\t %d\t %d\n', [X; Y; Z]);
             fclose(fout);
