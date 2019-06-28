@@ -126,6 +126,15 @@ scolocolize(7, 'C0', 'C1'); %detected spots no more than 7 px apart in the first
 ```
 Similarly, the results would be saved both in MATLAB figure and data file formats. In the data file format, three colums would stand for the detected spot coordinates.
 
+11. Subselect the cells within a ROI (optional)
+
+In the folder with the output Matlab figures containing the detected cells, run `sselectreg` with the filename of interest as a parameter:
+
+```matlab
+sselectreg('your_file_name.fig'); %allows to subselect cells in 'your_file_name.fig'
+```
+To define polygonal region of interest (ROI), use mouse clicks to define vertices. Once finished, click outside the plot area.
+
 REMOVING AUTOFLUORESCENCE (optional)
 
 Before running the spot detection, in the folder, containing folders with your samples, run `sclean.m` with the channel numbers as the parameters.
