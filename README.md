@@ -39,7 +39,7 @@ SZ        = 500;          %Splitting the task into squares of the given size (in
 OVERLAP   = 40;           %Overlap of the squares (in pixels) the task is divided into
 INTERACT  = 1;            %1 - interact, 0 - no interaction
 ```
-4. Switch to the folder, containing your data in TIFF format.
+4. Switch to the folder, containing your data in TIFF format - separate files for each virtual slice in z-stack.
 5. Adjust the Gaussian filtering parameters to remove noise and background.
 
 The Gaussian low-pass filter standard deviation `LOWPASS` had to be both larger than the typical noise artifact radius and smaller than the typical cell radius (the largest one not to merge the overlapping cells). The best compromise value for the standard deviation of the low-pass filter was typically between 0.5 and several pixels.
